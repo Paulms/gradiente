@@ -1,0 +1,2 @@
+# gradiente
+Tarea Gradiente Conjugado
