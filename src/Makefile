@@ -21,7 +21,7 @@ morse.o: ./morse.f90 decimal.o
 SRC = ./datos.f90 ./iterativos.f90 ./gradiente.f90 ./morse.f90 ./decimal.f90
 OBJ = datos.o iterativos.o gradiente.o morse.o decimal.o
 clean: neat
-	-rm -f .gradiente.cppdefs $(OBJ) gradiente
+	-rm -f .gradiente.cppdefs $(OBJ) ../bin/gradiente *.mod
 neat:
 	-rm -f $(TMPFILES)
 TAGS: $(SRC)
@@ -29,4 +29,4 @@ TAGS: $(SRC)
 tags: $(SRC)
 	ctags $(SRC)
 gradiente: $(OBJ) 
-	$(LD) $(OBJ) -o gradiente  $(LDFLAGS)
+	$(LD) $(OBJ) -o ../bin/gradiente  $(LDFLAGS)
