@@ -1,0 +1,40 @@
+FC = gfortran
+LD = gfortran
+
+FFLAGS =  $(OPT)  
+LDFLAGS =  $(OPT) $(LIBS)
+LIST = -listing
+
+#LIBMKL0=  /opt/intel/mkl/lib
+
+# Opciones de compilacion:
+# 
+# DEBUG:
+# ------
+#OPT= -i8 -O0 -debug full -check uninit -ftrapuv -check all -CB -CU -check  -gen-interfaces -traceback -check arg_temp_created -fpe0 -fp-stack-check -pg -heap-arrays -g
+OPT= -g
+#
+#
+# OPTIMIZACION (con ipo): En este caso se deben usar las librerias dinamicas. No funciona con link estaticos
+# ----------------------
+#
+#OPT=  -O3 -fast -parallel -i8
+#
+# OPTIMIZACION (sin ipo): En este caso se pueden usar las librerias dinamicas y/o estaticas (.a)
+# -----------------------
+#
+# OPT= -O3 -fast -noipo -no-prec-div -parallel
+#
+#
+# Librerias de MKL a utilizar:
+#
+# ESTATICAS (.a):
+#
+#LIBS = $(LIBMKL0)/libmkl_intel_ilp64.a $(LIBMKL0)/libmkl_core.a $(LIBMKL0)/libmkl_sequential.a  -lpthread -lm
+#LIBS = $(LIBMKL0)/libmkl_intel_ilp64.a $(LIBMKL0)/libmkl_core.a $(LIBMKL0)/libmkl_intel_thread.a -liomp5 -lpthread -lm
+#
+#
+# DINAMICAS:
+#
+#LIBS =   -L${LIBMKL0} -lmkl_intel_ilp64 -lmkl_core -lmkl_intel_thread -liomp5 -lpthread -lm
+#
