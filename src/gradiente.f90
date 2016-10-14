@@ -23,12 +23,12 @@ PROGRAM gradiente_conjugado
   INTEGER                       :: nn                   !dimensiones
   INTEGER                       :: itmax        ! Iteraciones maximas
   REAL(kind=dp)                 :: tol          ! tolerancia e iteraciones
-  CHARACTER(32)                 ::  file_name
-  CHARACTER(32)                 ::  output_name
+  CHARACTER(32)                 :: file_name
+  CHARACTER(32)                 :: output_name
+  INTEGER                       :: ierr
 
   ! Primero leemos los datos
-  file_name = "../examples/datos.dat"
-
+  file_name = "datos.dat"
   CALL archivo_corto(file_name, output_name, mat, bb, xo, tol, itmax, imprimir_datos=.TRUE.)
   ! GRADIENTE CONJUGADO
   nn = 0; nn = SIZE(bb)
@@ -36,5 +36,12 @@ PROGRAM gradiente_conjugado
   CALL MGC(mat, bb, xo, nn, tol, itmax, xr)
   CALL save_output(output_name, xr)
   PRINT*,' La solucion es = ', xr
+  ! LIBERAMOS MEMORIA
+  DEALLOCATE(bb,xo,xr,STAT=ierr)
+  IF(ierr/=0) THEN
+     PRINT*,'problemas liberando la memoria!! (Programa principal)'
+     PRINT*,'ERROR 99, ABORT!!'
+     STOP
+  END IF
 
 END PROGRAM gradiente_conjugado
