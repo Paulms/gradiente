@@ -28,7 +28,7 @@ PROGRAM gradiente_conjugado
 
   ! Primero leemos los datos
   file_name = "datos.dat"
-  CALL archivo_corto(file_name, output_name, mat, bb, xo, tol, itmax, imprimir_datos=.TRUE.)
+  CALL leer_archivo(file_name, output_name, mat, bb, xo, tol, itmax, imprimir_datos=.TRUE.)
   ! GRADIENTE CONJUGADO
   nn = 0; nn = SIZE(bb)
   ALLOCATE(xr(nn)); xr = 0.0

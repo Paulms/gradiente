@@ -16,10 +16,10 @@ MODULE datos
   USE decimal
   USE morse
   IMPLICIT NONE
-  PUBLIC  :: archivo_corto
-  PRIVATE :: linea_a_vector
+  PUBLIC  :: leer_archivo, save_output
+  PRIVATE :: linea_a_vector, leer_vector
   CONTAINS
-  SUBROUTINE archivo_corto (file_name, output_name, mat, bb, xo, tol, itmax, imprimir_datos)
+  SUBROUTINE leer_archivo (file_name, output_name, mat, bb, xo, tol, itmax, imprimir_datos)
     !======================================================
     ! Leemos datos de un problema lineal almacenados
     ! en un solo archivo
@@ -74,7 +74,7 @@ MODULE datos
     ! Creamos matriz morse
     mat = MSparse(nn, nzero, AA, rows, columns)
     IF (mensajes) CALL print_flat(mat)
-  END SUBROUTINE archivo_corto
+  END SUBROUTINE leer_archivo
 
   SUBROUTINE save_output(file_name, xi)
     !======================================================
