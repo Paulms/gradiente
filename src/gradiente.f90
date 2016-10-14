@@ -13,19 +13,18 @@ PROGRAM gradiente_conjugado
   USE morse                 ! Módulo define el tipo MSparse
   USE decimal               ! Define la precisión
   USE iterativos            ! Modulo con MGC
-  USE datos
+  USE datos                 ! Modulo para leera datos
 
   IMPLICIT NONE
   ! Definimos variables a utilizar
   REAL(kind=dp), ALLOCATABLE    :: bb(:), xr(:), xo(:)
-  CHARACTER(1024)               :: str
-  TYPE (MSparse)                :: mat                  ! Almacena matriz en CRS
-  INTEGER                       :: nn                   !dimensiones
+  TYPE (MSparse)                :: mat          ! Almacena matriz en CRS
+  INTEGER                       :: nn           ! dimensiones
   INTEGER                       :: itmax        ! Iteraciones maximas
   REAL(kind=dp)                 :: tol          ! tolerancia e iteraciones
-  CHARACTER(32)                 :: file_name
-  CHARACTER(32)                 :: output_name
-  INTEGER                       :: ierr
+  CHARACTER(32)                 :: file_name    ! Archivo de datos
+  CHARACTER(32)                 :: output_name  ! Archivo para salida
+  INTEGER                       :: ierr         ! Error memoria
 
   ! Primero leemos los datos
   file_name = "datos.dat"
@@ -34,13 +33,12 @@ PROGRAM gradiente_conjugado
   nn = 0; nn = SIZE(bb)
   ALLOCATE(xr(nn)); xr = 0.0
   CALL MGC(mat, bb, xo, nn, tol, itmax, xr)
+  ! Guardamos el resultado
   CALL save_output(output_name, xr)
-  PRINT*,' La solucion es = ', xr
   ! LIBERAMOS MEMORIA
   DEALLOCATE(bb,xo,xr,STAT=ierr)
   IF(ierr/=0) THEN
      PRINT*,'problemas liberando la memoria!! (Programa principal)'
-     PRINT*,'ERROR 99, ABORT!!'
      STOP
   END IF
 

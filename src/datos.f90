@@ -77,10 +77,12 @@ MODULE datos
   END SUBROUTINE archivo_corto
 
   SUBROUTINE save_output(file_name, xi)
-    CHARACTER(32), INTENT(in)              ::  file_name     ! archivo
-    REAL(kind=dp), ALLOCATABLE, INTENT(in) :: xi(:)
-    INTEGER                                :: i, nn
-
+    !======================================================
+    ! Almacena un vector en archivo file_name
+    !====================================================== 
+    CHARACTER(32), INTENT(in)              ::  file_name  ! archivo
+    REAL(kind=dp), ALLOCATABLE, INTENT(in) :: xi(:)       ! vector
+    INTEGER                                :: i, nn 
     nn = SIZE(xi) 
     OPEN(unit=20,file=file_name,status='replace',action='write')
     DO i = 1,nn
@@ -110,6 +112,12 @@ MODULE datos
   END FUNCTION
 
   FUNCTION leer_vector (fileid, dims) result(vector)
+    !======================================================
+    ! Inicializa vector dimensiones dims desde archivo
+    ! fileid
+    ! Salida:
+    !   vector: vector de números reales
+    !====================================================== 
     INTEGER       :: fileid
     INTEGER       :: dims
     REAL(kind=dp) :: vector(dims)
