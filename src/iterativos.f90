@@ -12,8 +12,8 @@ MODULE iterativos
   !! e-mail: paul.mendez@udec.cl                          !!
   !! Fecha: 29/Septiembre/2016                            !!
   !!                                                      !!
-  !! Version: 0.1                                         !!
-  !! Ultima revision: 29/Septiembre/2016                  !!   
+  !! Version: 0.2                                         !!
+  !! Ultima revision: 14/Octubre/2016                     !!   
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   USE decimal
   USE morse

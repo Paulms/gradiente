@@ -7,13 +7,13 @@ PROGRAM gradiente_conjugado
   !! e-mail: paul.mendez@udec.cl                          !!
   !! Fecha: 26/Septiembre/2016                            !!
   !!                                                      !!
-  !! Version: 0.3                                         !!
-  !! Ultima revision: 29/Septiembre/2016                  !!   
+  !! Version: 0.4                                         !!
+  !! Ultima revision: 14/Octubre/2016                     !!   
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   USE morse                 ! Módulo define el tipo MSparse
   USE decimal               ! Define la precisión
   USE iterativos            ! Modulo con MGC
-  USE datos                 ! Modulo para leera datos
+  USE datos                 ! Modulo para leer datos
 
   IMPLICIT NONE
   ! Definimos variables a utilizar
@@ -29,13 +29,13 @@ PROGRAM gradiente_conjugado
   ! Primero leemos los datos
   file_name = "datos.dat"
   CALL leer_archivo(file_name, output_name, mat, bb, xo, tol, itmax, imprimir_datos=.TRUE.)
-  ! GRADIENTE CONJUGADO
+  ! Llamamos al método del gradiente conjugado
   nn = 0; nn = SIZE(bb)
   ALLOCATE(xr(nn)); xr = 0.0
   CALL MGC(mat, bb, xo, nn, tol, itmax, xr)
   ! Guardamos el resultado
   CALL save_output(output_name, xr)
-  ! LIBERAMOS MEMORIA
+  ! Liberamos memoria
   DEALLOCATE(bb,xo,xr,STAT=ierr)
   IF(ierr/=0) THEN
      PRINT*,'problemas liberando la memoria!! (Programa principal)'

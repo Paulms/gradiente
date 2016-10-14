@@ -19,8 +19,8 @@ MODULE morse
   !! e-mail: paul.mendez@udec.cl                          !!
   !! Fecha: 11/Septiembre/2016                            !!
   !!                                                      !!
-  !! Version: 0.2                                         !!
-  !! Ultima revision: 27/Septiembre/2016                  !!   
+  !! Version: 0.3                                         !!
+  !! Ultima revision: 14/Octubre/2016                     !!   
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !
   USE decimal
