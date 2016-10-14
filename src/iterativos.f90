@@ -43,7 +43,7 @@ SUBROUTINE MGC (AA, bb, xo, nn, tol, itmax, xr)
     ! Inicializamos variables
     ALLOCATE (rr(nn), pp(nn), ra(nn), Apk(nn))
     rr = 0.0; ra = 0.0; pp = 0.0; alpha = 0.0; Apk = 0.0
-    rr = bb - AA%dot(xo, nn)
+    rr = bb - AA%dot(xo)
     xr = xo
     ! Comprobamos si xo corresponde ya a la respuesta
     IF (ABS(norma2(rr))<tol) THEN
@@ -55,7 +55,7 @@ SUBROUTINE MGC (AA, bb, xo, nn, tol, itmax, xr)
     ! Realizamos las iteraciones
     pp = rr
     DO i=1,itmax
-      Apk = AA%dot(pp,nn)
+      Apk = AA%dot(pp)
       alpha = (DOT_PRODUCT(rr,pp))/DOT_PRODUCT(Apk, pp)
       xr = xr + alpha*pp
       ra = rr

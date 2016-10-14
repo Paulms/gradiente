@@ -24,13 +24,17 @@ PROGRAM gradiente_conjugado
   INTEGER                       :: itmax        ! Iteraciones maximas
   REAL(kind=dp)                 :: tol          ! tolerancia e iteraciones
   CHARACTER(32)                 ::  file_name
+  CHARACTER(32)                 ::  output_name
 
   ! Primero leemos los datos
   file_name = "../examples/datos.dat"
-  CALL archivo_corto(file_name, mat, bb, xo, tol, itmax, imprimir_datos=.TRUE.)
+
+  CALL archivo_corto(file_name, output_name, mat, bb, xo, tol, itmax, imprimir_datos=.TRUE.)
   ! GRADIENTE CONJUGADO
   nn = 0; nn = SIZE(bb)
   ALLOCATE(xr(nn)); xr = 0.0
   CALL MGC(mat, bb, xo, nn, tol, itmax, xr)
+  CALL save_output(output_name, xr)
   PRINT*,' La solucion es = ', xr
+
 END PROGRAM gradiente_conjugado

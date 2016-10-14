@@ -29,6 +29,7 @@ MODULE morse
 
   TYPE MSparse
     ! Tipo para almacenar matrices en formato CRS
+    INTEGER                     :: nn, nzero
     REAL (kind=dp), ALLOCATABLE :: valores(:)             ! AA
     INTEGER, ALLOCATABLE        :: filas(:), columnas(:)  ! rows columns
   CONTAINS
@@ -58,7 +59,8 @@ CONTAINS
     col = 0; row = 0; element = 0
     ! Contamos elementos diferentes a cero en la matriz
     nzero = COUNT(ABS(matriz) > eps)
-
+    init_matriz%nn = nn
+    init_matriz%nzero = nzero
     ! Reservamos memoria
     ALLOCATE(init_matriz%filas(nn+1),init_matriz%columnas(nzero), init_matriz%valores(nzero))
 
@@ -99,8 +101,8 @@ CONTAINS
     REAL (kind=dp)              :: elemento           ! Elemento A(i,j)
     INTEGER                     :: fila, columna, ii  ! indices i, j e iteradores
     ! Validar los indices i, j
-    IF (fila < 1 .OR. columna < 1) THEN
-      PRINT *, "Error: Índices deben ser mayores a 0"
+    IF (fila < 1 .OR. columna < 1 .or. fila > this%nn .or. columna > this%nn) THEN
+      PRINT *, "Error: Índices deben ser mayores a 0 o menores a", this%nn
       STOP
     ELSE
       elemento = 0 ! Asumimos que el espacio está vacio                                   
@@ -115,7 +117,7 @@ CONTAINS
     END IF
   END FUNCTION buscar_elementos
 
-  FUNCTION mult_vector(this, vector, nn) RESULT(resultado)
+  FUNCTION mult_vector(this, vector) RESULT(resultado)
     !========================================================
     ! Esta función permite multiplicar la matriz CRS por un vector
     ! Variables:
@@ -123,14 +125,18 @@ CONTAINS
     !     nn:     dimensiones del vector x
     !========================================================
     CLASS(MSparse), INTENT(in)    :: this           ! almacena la matriz
-    INTEGER, INTENT(in)           :: nn             ! Dimensiones 
-    REAL (kind=dp), INTENT(in)    :: vector (nn)    ! Vector de entrada
-    REAL (kind=dp)                :: resultado (nn) ! resultado de la multiplicación
+    REAL (kind=dp), INTENT(in)    :: vector (:)    ! Vector de entrada
+    REAL (kind=dp)                :: resultado (this%nn) ! resultado de la multiplicación
     INTEGER                       :: ii, jj         ! variables para iterar
+    ! Chequeamos si las dimensiones son compatibles
+    IF (this%nn /= SIZE(vector)) THEN
+      PRINT *, "Error: Dimensiones no compatibles: matriz: ", this%nn, "Vector: ", SIZE(vector)
+      STOP
+    END IF
     ! Inicializamos variables
     resultado = 0
     ! Realizamos la multiplicación
-    DO ii = 1, nn
+    DO ii = 1, this%nn
       DO jj = this%filas(ii), (this%filas(ii+1)-1)
         resultado(ii) = resultado(ii) + this%valores(jj)*vector(this%columnas(jj))
       END DO
