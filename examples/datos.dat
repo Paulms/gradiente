@@ -1,10 +1,10 @@
 salida.dat
 1e-6      -------> Tolerancia
 10        -------> Iteraciones
-2         -------> Dimension del sisema
-0 0       -------> inicial
-1 0       -------> rhs
-4         -------> nzero
-2 -1 -1 2 -------> valores
-1 3 5     -------> rows
-1 2 1 2   -------> columns
+6         -------> Dimension del sisema
+0 0 0 0 0 0                 -------> inicial
+0.5 0.7 1 0.7 0.5 0         -------> rhs
+16                          -------> nzero
+2 -1 -1 2 -1 -1 2 -1 -1 2 -1 -1 2 -1 -1 2   -------> valores
+1 3 6 9 12 15 17                            -------> rows
+1 2 1 2 3 2 3 4 3 4 5 4 5 6 5 6             -------> columns

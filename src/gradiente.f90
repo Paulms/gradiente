@@ -32,7 +32,7 @@ PROGRAM gradiente_conjugado
   ! Llamamos al método del gradiente conjugado
   nn = 0; nn = SIZE(bb)
   ALLOCATE(xr(nn)); xr = 0.0
-  CALL MGC(mat, bb, xo, nn, tol, itmax, xr)
+  CALL MGC(mat, bb, xo, tol, itmax, xr)
   ! Guardamos el resultado
   CALL save_output(output_name, xr)
   ! Liberamos memoria

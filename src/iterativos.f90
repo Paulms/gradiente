@@ -21,7 +21,7 @@ MODULE iterativos
   PUBLIC  :: MGC
   PRIVATE :: norma2
 CONTAINS
-SUBROUTINE MGC (AA, bb, xo, nn, tol, itmax, xr)
+SUBROUTINE MGC (AA, bb, xo, tol, itmax, xr)
     !======================================================
     ! Método del gradiente conjugado para solución de
     ! sistemas lineales
@@ -41,6 +41,7 @@ SUBROUTINE MGC (AA, bb, xo, nn, tol, itmax, xr)
     INTEGER                     :: itmax, nn, i
     REAL(kind=dp), ALLOCATABLE  :: rr(:), pp(:), ra(:), Apk(:)
     ! Inicializamos variables
+    nn = SIZE(bb)
     ALLOCATE (rr(nn), pp(nn), ra(nn), Apk(nn))
     rr = 0.0; ra = 0.0; pp = 0.0; alpha = 0.0; Apk = 0.0
     rr = bb - AA%dot(xo)
