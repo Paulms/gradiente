@@ -12,7 +12,7 @@ MODULE morse
   !!                    matriz almacenada                 !!
   !!  buscar_elementos = dado dos enteros i,j devuelve    !!
   !!                      A(i,j)                          !!
-  !!  mult_vector = dado un vector x realiza la           !!
+  !!  mat_vector = dado un vector x realiza la            !!
   !!                multiplicación con la matriz Ax       !!
   !!                                                      !!
   !! Autor: Paul Mendez Silva                             !!
