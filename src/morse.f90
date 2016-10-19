@@ -34,11 +34,14 @@ MODULE morse
     INTEGER, ALLOCATABLE        :: filas(:), columnas(:)  ! rows columns
   CONTAINS
     PROCEDURE :: ix => buscar_elementos
-    PROCEDURE :: dot => mult_vector
   END TYPE MSparse
 
   INTERFACE MSparse
     MODULE PROCEDURE init_matriz
+  END INTERFACE
+
+  INTERFACE OPERATOR (*)
+    MODULE PROCEDURE mat_vector
   END INTERFACE
 
 CONTAINS
@@ -117,14 +120,14 @@ CONTAINS
     END IF
   END FUNCTION buscar_elementos
 
-  FUNCTION mult_vector(this, vector) RESULT(resultado)
+  FUNCTION mat_vector(this, vector) RESULT(resultado)
     !========================================================
     ! Esta función permite multiplicar la matriz CRS por un vector
     ! Variables:
     !     vector: vector x para realizar el producto Ax
     !     nn:     dimensiones del vector x
     !========================================================
-    CLASS(MSparse), INTENT(in)    :: this           ! almacena la matriz
+    TYPE (MSparse), INTENT(in)    :: this           ! almacena la matriz
     REAL (kind=dp), INTENT(in)    :: vector (:)    ! Vector de entrada
     REAL (kind=dp)                :: resultado (this%nn) ! resultado de la multiplicación
     INTEGER                       :: ii, jj         ! variables para iterar
